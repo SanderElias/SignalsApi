@@ -5,7 +5,15 @@
   "projects": {
     "SignalsApi": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "standalone": true,
+          "skipTests": true,
+          "inlineTemplate": true,
+          "displayBlock": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -91,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "10323be7-3bb8-430d-9a24-5955ce8a95e8"
   }
 }
