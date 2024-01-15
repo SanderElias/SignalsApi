@@ -26,7 +26,8 @@ export class AlbumComponent {
   $albumId = input<number>();
 
 
-  $photos = this.album.load(this.$albumId);
+  $data = this.album.load(this.$albumId);
+  $photos = computed(() => this.$data().data ||[]);
 
 
 }

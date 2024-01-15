@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue-12);
+  padding: .2rem;
+  margin: 0 .2rem ;
+  background-color: var(--gray-5);
+  border-radius: .2rem;
+}

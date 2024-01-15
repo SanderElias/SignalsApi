@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  gap: .5rem;
+  --input-width: 35rem;
+
+  input {
+    width: var(--input-width);
+  }
+
+  textarea {
+    width: var(--input-width);
+    height: 10rem;
+  }
+
+  button {
+    width: calc(var(--input-width) + 5rem );
+    align-self: flex-start;
+  }
+
+  label {
+    display: flex;
+
+    span {
+      width: 5rem;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+ul {
+  position: absolute;
+  right: 1rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  min-height: 1rem;
+  width: 15rem;
+  background-color: var(--blue-12);
+}
+
+
+li {
+  display: none;
+  margin-right: 0;
+  padding: .25rem;
+}
+
+ul:hover li {
+  display: block;
+}
+
+ul li:first-child {
+  display: flex;
+  justify-content: space-between;
+}

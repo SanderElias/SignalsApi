@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./album/album.component').then((m) => m.AlbumComponent),
   },
+  {
+    path: 'posts',
+    loadChildren: () => import('./posts/posts.routes'),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];

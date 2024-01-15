@@ -5,19 +5,20 @@ import { AlbumsService } from './albums.service';
 import { AlbumComponent } from './album/album.component';
 import { SelectComponent } from './select/select.component';
 import { SectionComponent } from './section/section.component';
+import { MenuComponent } from "./menu/menu.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
+    selector: 'app-root',
+    standalone: true,
+    template: `
     <header>
-      <h1>Signal API sample</h1>
+      <h1>Signal API sample</h1> <app-menu />
     </header>
     <main>
       <router-outlet />
     </main>
   `,
-  styleUrl: './app.component.css',
-  imports: [RouterOutlet, SectionComponent],
+    styleUrl: './app.component.css',
+    imports: [RouterOutlet, SectionComponent, MenuComponent]
 })
 export class AppComponent {}
