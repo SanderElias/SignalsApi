@@ -8,17 +8,19 @@ import {
 import { PostCrudService } from '../post.crud.service';
 import { PostsListService } from '../post.list.service';
 import { PostFormComponent } from './post-form/post-form.component';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [PostFormComponent],
+  imports: [PostFormComponent, JsonPipe],
   template: `
     @if ($result().loading) {
       <h4>loading...</h4>
     } @else {
-      @if ($result().error) {
-        <h4>error: {{ $error()?.message }}</h4>
+      @if ($error()) {
+        <h4>error:</h4>
+        <pre><code>{{ $result().error | json}}</code></pre>
       } @else {
         <h4>post id:{{ $postId() }}</h4>
         <p>Title: {{ $post()?.title }}</p>
