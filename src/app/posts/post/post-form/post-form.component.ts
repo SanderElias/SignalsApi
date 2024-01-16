@@ -45,7 +45,9 @@ export class PostFormComponent {
       body: body.value,
     };
     if (this.$isNew()) {
-      await this.postCrudService.create(newPost);
+      // the console.log is just to show the error. but we should inform the user a bit better than that.
+      // but it is here, because the responsibility for informing the user is here, and not in a service.
+      await this.postCrudService.create(newPost).catch(a => console.log(a));
     } else {
       await this.postCrudService.update(newPost);
     }

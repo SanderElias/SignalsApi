@@ -40,6 +40,10 @@ export class PostCrudService {
       // We need to handle this error in the calling component, as we need to inform the user
       throw new Error(`failed to save post ${post.id}`);
       // todo: decide if we want to put this error in the DataResultSignal?
+      /**
+       * if we do, we need to decide if we want to keep the old data, or empty it.
+       * But I believe that is a decision for the component, not the service.
+       */
     }
     if (method === 'post') {
       this.#postList.add(post); // add it to the list.
