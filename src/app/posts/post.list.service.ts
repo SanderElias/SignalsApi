@@ -1,24 +1,14 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   Injectable,
-  Signal,
   WritableSignal,
   computed,
   inject,
-  signal,
+  signal
 } from '@angular/core';
 import {
-  Observable,
-  catchError,
-  firstValueFrom,
-  map,
-  of,
-  startWith,
-  switchMap,
-  tap,
-  timer,
+  firstValueFrom
 } from 'rxjs';
-import { DataResult, asyncToSignal } from '../asyncToSignal';
 
 @Injectable({
   providedIn: 'root',

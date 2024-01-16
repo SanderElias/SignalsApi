@@ -1,16 +1,9 @@
-import { Injectable, Signal, computed, inject, signal } from '@angular/core';
-import { DataResult, asyncToSignal } from '../asyncToSignal';
-import { Post, PostsListService } from './post.list.service';
 import { HttpClient } from '@angular/common/http';
-import {
-  timer,
-  switchMap,
-  firstValueFrom,
-  first,
-  EMPTY,
-  pipe,
-} from 'rxjs';
+import { Injectable, Signal, computed, inject, signal } from '@angular/core';
+import { firstValueFrom, switchMap, timer } from 'rxjs';
+import { DataResult, asyncToSignal } from '../asyncToSignal';
 import { httpToDataResult } from '../httpToDataResult';
+import { Post, PostsListService } from './post.list.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostCrudService {
@@ -79,5 +72,3 @@ export class PostCrudService {
       httpToDataResult(),
     );
 }
-
-
