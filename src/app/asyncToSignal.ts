@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Signal, WritableSignal, isSignal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import {
-  Observable,
-  of,
-  startWith,
-  switchMap,
-  take
-} from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
+
+// This is a work in progress. while ready for production,
+// we might want to add more features, or even stray away from
+// Angular injection. (which is now required for this to work)
+// this could be done once [this](https://github.com/tc39/proposal-explicit-resource-management?tab=readme-ov-file)
+// progresses to a more mature state.
 
 /**
  *
@@ -29,12 +29,9 @@ export function asyncToSignal<I, T>(
     const start = (
       isSignal(input) ? toObservable(input) : of(input)
     ) as Observable<I>;
-    return toSignal(
-      start.pipe(switchMap(loader)),
-      {
-        initialValue: startData,
-      },
-    );
+    return toSignal(start.pipe(switchMap(loader)), {
+      initialValue: startData,
+    });
   } catch (e) {
     const { message } = e as Error;
     if (message.startsWith('NG0203')) {

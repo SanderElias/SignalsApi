@@ -56,6 +56,7 @@ export class PostsService {
   load = (postId: Signal<number>) =>
     computed(() => this.#postCache().get(+postId())?.());
 
+  /** generate a new id, the stupid way! */
   newId = (id = 0) =>
     computed(() =>
       this.list().reduce((id, next) => Math.max(id, next + 1), id),
