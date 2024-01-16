@@ -1,33 +1,10 @@
 :host {
   display: block;
+  width: 43rem;
+  min-height: 25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--gray-7);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  gap: .5rem;
-  --input-width: 35rem;
 
-  input {
-    width: var(--input-width);
-  }
-
-  textarea {
-    width: var(--input-width);
-    height: 10rem;
-  }
-
-  button {
-    width: calc(var(--input-width) + 5rem );
-    align-self: flex-start;
-  }
-
-  label {
-    display: flex;
-
-    span {
-      width: 5rem;
-    }
-  }
-}

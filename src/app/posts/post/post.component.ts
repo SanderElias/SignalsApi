@@ -2,91 +2,59 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
-  signal,
 } from '@angular/core';
-import { Post, PostsService } from '../posts.service';
+import { PostCrudService } from '../post.crud.service';
+import { PostsListService } from '../post.list.service';
+import { PostFormComponent } from './post-form/post-form.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [PostFormComponent],
   template: `
-    <hr />
-    @if ($loading()) {
+    @if ($result().loading) {
       <h4>loading...</h4>
     } @else {
-      @if ($error()) {
+      @if ($result().error) {
         <h4>error: {{ $error()?.message }}</h4>
       } @else {
         <h4>post id:{{ $postId() }}</h4>
-        <p>Title: {{ $originalPost()?.title }}</p>
-        <p>content: {{ $originalPost()?.body?.substring(0, 40) }}...</p>
-        <form #form (submit)="save(form, $event)">
-          <label>
-            <span>title</span>
-            <input type="text" name="title" [value]="$localCopy().title"
-          /></label>
-          <label>
-            <span>content</span>
-            <textarea name="body" [value]="$localCopy().body"></textarea>
-          </label>
-          <button type="submit">{{ $isNew() ? 'create' : 'update' }}</button>
-        </form>
+        <p>Title: {{ $post()?.title }}</p>
+        <p>content: {{ $post()?.body?.substring(0, 40) }}...</p>
+        <post-form [$isNew]="$isNew()" />
       }
     }
   `,
   styleUrl: './post.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [PostCrudService], // provide this service only for this component-tree
 })
 export class PostComponent {
-  ps = inject(PostsService);
-  $postId = input(0);
-  $result = this.ps.read(this.$postId);
-  $originalPost = computed(() => this.$result().data);
-  $loading = computed(() => this.$result().loading);
+  postService = inject(PostsListService);
+  postCrudService = inject(PostCrudService);
 
+  $postId = input<number>(0);
+  $result = this.postCrudService.read(this.$postId);
+  $loading = computed(() => this.$result().loading);
   $isNew = computed(() => {
     return this.$postId() === 0 || this.$result().error?.status === 404;
   });
-
-  $error = computed(
-    () => {
-      const err = this.$result().error;
-      // swallow the 404, as we are using it to determine if the post is new
-      return err?.status === 404 ? undefined : err;
-    },
-  );
-
-  $localCopy = computed(() => {
-    const post = this.$result().data;
-    const copy = {
-      id: post?.id ?? this.ps.newId(this.$postId()),
-      title: post?.title ?? '',
-      body: post?.body ?? '',
-    };
-    return copy;
+  $error = computed(() => {
+    const err = this.$result().error;
+    // swallow the 404, as we are using it to determine if the post is new
+    return err?.status === 404 ? undefined : err;
   });
 
-  save(form: HTMLFormElement, event: Event) {
-    event.preventDefault();
-    const { title, body } = form.elements as any;
-    this.ps.update({
-      ...this.$localCopy(),
-      title: title.value,
-      body: body.value,
-    } as Post);
-    return false;
-  }
+  $post = this.postCrudService.$post;
 
-  constructor() {
-    effect(() => {
-      console.log('post id changed', this.$postId());
-    });
-    effect(() => {
-      console.log('post data', this.$localCopy());
-    });
-  }
+  // constructor() {
+  //   effect(() => {
+  //     console.log('post id changed', this.$postId());
+  //   });
+  //   effect(() => {
+  //     console.log('post data', this.$localCopy());
+  //   });
+  // }
 }

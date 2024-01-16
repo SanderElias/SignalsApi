@@ -1,6 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Signal, WritableSignal, isSignal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {
+  CreateComputedOptions,
+  DestroyRef,
+  Injector,
+  Signal,
+  WritableSignal,
+  inject,
+  isSignal,
+  runInInjectionContext,
+  signal,
+} from '@angular/core';
+import {
+  ToObservableOptions,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import { Observable, of, switchMap } from 'rxjs';
 
 // This is a work in progress. while ready for production,
@@ -19,19 +33,27 @@ import { Observable, of, switchMap } from 'rxjs';
 export function asyncToSignal<I, T>(
   input: Signal<I> | WritableSignal<I>,
   loader: (start: I) => Observable<DataResult<T>> | Promise<DataResult<T>>,
-  { initialValue }: { initialValue?: T } = {},
+  options: AsyncToSignalOptions<T> = {},
 ): Signal<DataResult<T>> {
-  const startData: DataResult<T> =
-    initialValue !== undefined
-      ? { loading: false, data: initialValue }
-      : { loading: true };
   try {
+    inject(DestroyRef).onDestroy(() => {
+      unSub.unsubscribe();
+    });
+    const outputSignal =
+      options.signalToUse ?? signal({ loading: true } as DataResult<T>);
+    const startData: DataResult<T> =
+      options.initialValue !== undefined
+        ? { loading: false, data: options.initialValue }
+        : { loading: true };
     const start = (
       isSignal(input) ? toObservable(input) : of(input)
     ) as Observable<I>;
-    return toSignal(start.pipe(switchMap(loader)), {
-      initialValue: startData,
+    const unSub = start.pipe(switchMap(loader)).subscribe({
+      next: (data) => outputSignal.set(data),
+      error: (error) => outputSignal.set({ loading: false, error }),
+      complete: () => undefined, // todo: decide if we want to handle completion
     });
+    return outputSignal.asReadonly();
   } catch (e) {
     const { message } = e as Error;
     if (message.startsWith('NG0203')) {
@@ -43,6 +65,12 @@ export function asyncToSignal<I, T>(
     }
   }
 }
+
+type AsyncToSignalOptions<T> = {
+  initialValue?: T;
+  signalToUse?: WritableSignal<DataResult<T>>;
+} & CreateComputedOptions<T> &
+  ToObservableOptions;
 
 export interface DataResult<T> {
   loading: boolean;

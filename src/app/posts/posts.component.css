@@ -10,3 +10,10 @@ a {
   background-color: var(--gray-5);
   border-radius: .2rem;
 }
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 44rem);
+  gap: 1rem;
+  margin: 1rem;
+}
