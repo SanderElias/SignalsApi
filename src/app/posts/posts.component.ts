@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { PostsListService } from './post.list.service';
@@ -20,12 +22,12 @@ import { PostComponent } from './post/post.component';
     }
     <div>
       <label>
-        <span>Use a ne aside?</span>
         <input
           type="checkbox"
           [checked]="$useAside()"
           (change)="$useAside.set($any($event.target).checked)"
         />
+        <span>Use an aside?</span>
       </label>
     </div>
     <hr />
@@ -55,10 +57,26 @@ export class PostsComponent {
   open(id: number) {
     if (this.$useAside()) {
       this.$asides.update((asides) => {
-        return [...asides,id];
+        return [...asides, id];
       });
     } else {
       this.router.navigateByUrl(`/posts/${id}`);
     }
+  }
+
+  constructor() {
+    effect(() => {
+      // remove any asides that are not in the list of postIds
+      const postIds = this.$postIds();
+      untracked(() =>
+        // this is in an untracked block because want to update the aside without re-triggering this effect
+        // it still marks the '$asides' signal as dirty, but it doesn't re-run the effect
+        this.$asides.update((asides) => {
+          const result = asides.filter((id) => postIds.includes(id));
+          console.log({ result });
+          return result;
+        }),
+      );
+    });
   }
 }

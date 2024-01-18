@@ -11,6 +11,10 @@ a {
   border-radius: .2rem;
 }
 
+label {
+  padding: var(--padding-2);
+}
+
 #grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 44rem);

@@ -1,14 +1,5 @@
-import {
-  Component,
-  Signal,
-  computed,
-  effect,
-  inject,
-  input,
-  isSignal,
-  signal,
-} from '@angular/core';
-import { AlbumService, Photos } from '../album.service';
+import { Component, computed, inject, input } from '@angular/core';
+import { AlbumService } from '../album.service';
 
 @Component({
   selector: 'app-album',
@@ -25,9 +16,6 @@ export class AlbumComponent {
   private readonly album = inject(AlbumService);
   $albumId = input<number>();
 
-
   $data = this.album.load(this.$albumId);
-  $photos = computed(() => this.$data().data ||[]);
-
-
+  $photos = computed(() => this.$data().data || []);
 }

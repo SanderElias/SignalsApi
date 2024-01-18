@@ -4,11 +4,9 @@ import {
   WritableSignal,
   computed,
   inject,
-  signal
+  signal,
 } from '@angular/core';
-import {
-  firstValueFrom
-} from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +31,7 @@ export class PostsListService {
   });
 
   /** get an list of available Id's from the cache. */
-  list = computed(() => [...this.#postCache().keys()]);
+  readonly list = computed(() => [...this.#postCache().keys()]);
 
   delete = async (id: number) => {
     await this.#postProm;
@@ -50,10 +48,8 @@ export class PostsListService {
     });
 
   /** generate a new id, the stupid way! */
-  newId = (id = 0) =>
-    computed(() =>
-      this.list().reduce((id, next) => Math.max(id, next + 1), id),
-    );
+  readonly newId = (id = 0) =>
+    this.list().reduce((id, next) => Math.max(id, next + 1), id);
 }
 
 export interface Post {

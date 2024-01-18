@@ -5,13 +5,13 @@ import { DataResult, asyncToSignal } from '../asyncToSignal';
 import { httpToDataResult } from '../httpToDataResult';
 import { Post, PostsListService } from './post.list.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class PostCrudService {
   #http = inject(HttpClient);
   #postList = inject(PostsListService);
   #url = (id: number) => `https://jsonplaceholder.typicode.com/posts/${id}`;
   // internal signal to hold the data and loading/error state
-  #$post = signal<DataResult<Post>>({ loading: true });
+  #$post = signal<DataResult<Post>>({loading: true });
 
   // public signal to the component
   $post = computed(() => this.#$post().data);
@@ -33,7 +33,7 @@ export class PostCrudService {
     try {
       if (method === 'post') {
         // we are creating a new post so we need to generate a new id
-        post.id = this.#postList.newId(post.id)();
+        post.id = this.#postList.newId(post.id);
       }
       await firstValueFrom(this.#http[method](this.#url(post.id), post));
     } catch (e) {

@@ -22,7 +22,10 @@ import { JsonPipe } from '@angular/common';
         <h4>error:</h4>
         <pre><code>{{ $result().error | json}}</code></pre>
       } @else {
-        <h4>post id:{{ $postId() }}</h4>
+        <div class="head">
+          <h4>post id:{{ $postId() }}</h4>
+          <button (click)="delete()">🗑️</button>
+        </div>
         <p>Title: {{ $post()?.title }}</p>
         <p>content: {{ $post()?.body?.substring(0, 40) }}...</p>
         <post-form [$isNew]="$isNew()" />
@@ -39,7 +42,7 @@ export class PostComponent {
 
   $postId = input<number>(0);
   $result = this.postCrudService.read(this.$postId);
-  $loading = computed(() => this.$result().loading);
+  // $loading = computed(() => this.$result().loading);
   $isNew = computed(() => {
     return this.$postId() === 0 || this.$result().error?.status === 404;
   });
@@ -50,6 +53,12 @@ export class PostComponent {
   });
 
   $post = this.postCrudService.$post;
+
+  delete = async () => {
+    if (confirm('Are you sure you want to delete this post?')) {
+      await this.postCrudService.delete(this.$postId());
+    }
+  };
 
   // constructor() {
   //   effect(() => {
