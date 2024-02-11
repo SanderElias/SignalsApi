@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+form {
+  display: grid;
+  gap: var(--size-2);
+  grid-template-columns: 1fr;
+}

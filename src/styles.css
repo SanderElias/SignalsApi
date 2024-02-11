@@ -1,6 +1,57 @@
 @import "open-props/style";
 
-
 /* just light or dark themes */
 @import "open-props/normalize/dark";
 @import "open-props/buttons/dark";
+
+label {
+  width: 30rem;
+  padding: 0 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+
+  span {
+    display: block;
+    margin-left: -1rem;
+  }
+
+}
+
+input {
+  width: 29rem;
+  padding: var(--size-2);
+  border: 1px solid var(--gray-9);
+  border-radius: var(--size-1);
+  background-color: var(--gray-8);
+  font-size: var(--size-4);
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+
+  &:focus {
+    border-color: var(--gray-5);
+    background-color: var(--gray-7);
+  }
+}
+
+fieldset {
+  display: flex;
+  margin-top: var(--size-2);
+  flex-direction: column;
+  gap: var(--size-2);
+  width: 30rem;
+  padding-left: 1rem;
+
+}
+
+label:has(input:invalid) {
+  span::after {
+    content: " *";
+    color: var(--red-8);
+  }
+
+  input {
+    border-color: var(--red-8);
+  }
+}

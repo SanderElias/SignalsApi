@@ -15,6 +15,10 @@ export const routes: Routes = [
     path: 'posts',
     loadChildren: () => import('./posts/posts.routes'),
   },
+  {
+    path: 'users',
+    loadComponent: () => import('./users/users.component').then((m) => m.UsersComponent),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];
