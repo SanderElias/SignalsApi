@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
         <li><a routerLink="/album/1">album-1</a></li>
         <li><a routerLink="/album/2">album-2</a></li>
         <li><a routerLink="/users">Users</a></li>
+        <li><a routerLink="/formStuff">Form</a></li>
 
       </ul>
     </nav>

@@ -1,0 +1,19 @@
+:host {
+  display: block;
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: start;
+    gap: 1rem;
+
+    span:after {
+      content: unset;
+    }
+  }
+
+  input {
+    width: 2rem;
+  }
+}

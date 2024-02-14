@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  NgZone,
   computed,
   effect,
+  inject,
   input,
   model,
   signal,
@@ -10,7 +13,7 @@ import {
 import { FormEntryComponent } from '../form-entry.component';
 
 @Component({
-  selector: 'app-object-entry',
+  selector: 'object-entry',
   standalone: true,
   imports: [FormEntryComponent],
   template: `
@@ -34,7 +37,7 @@ export class ObjectEntryComponent {
 
   $entries = computed(() =>
     Object.entries(this.$value()).map(([name, value]) => ({
-      name,
+      name: `${this.$name()}.${name}`,
       value,
     })),
   );

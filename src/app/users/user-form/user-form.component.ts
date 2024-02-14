@@ -9,17 +9,19 @@ import {
 import { UserCrudService } from '../../user.crud.service';
 import { FormEntryComponent } from '../form-entry/form-entry.component';
 import { JsonPipe } from '@angular/common';
+import { DateEntryComponent } from '../form-entry/date-entry/date-entry.component';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [FormEntryComponent],
+  imports: [FormEntryComponent, DateEntryComponent],
   template: `
-    <form (submit)="save($entries(), $event)">
+    <form (submit)="save($entries(), $event)" novalidate>
       <button type="submit">Save</button>
       @for (entry of $entries(); track $index) {
         <app-form-entry [$name]="entry[0]" [($value)]="entry[1]" />
       }
+      <app-date-entry [($value)]="bod" [$name]="'bod'" />
     </form>
   `,
   styleUrl: './user-form.component.css',
@@ -33,6 +35,7 @@ export class UserFormComponent {
   $data = this.ucs.read(this.userId);
   $user = computed(() => this.$data().data || {});
   $entries = computed(() => Object.entries(this.$user()));
+  bod = new Date()
 
   save(entries: [string, any][], event: Event) {
     const newData = flattenObj(Object.fromEntries(entries));

@@ -17,8 +17,16 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    loadComponent: () => import('./users/users.component').then((m) => m.UsersComponent),
+    loadComponent: () =>
+      import('./users/users.component').then((m) => m.UsersComponent),
+  },
+  {
+    path: 'formStuff',
+    loadComponent: () =>
+      import('./form-stuff/form-stuff.component').then(
+        (m) => m.FormStuffComponent,
+      ),
   },
 
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: 'forms' },
 ];

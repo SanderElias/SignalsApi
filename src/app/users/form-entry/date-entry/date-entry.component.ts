@@ -14,6 +14,7 @@ import {
     <span>{{ $name() }}:</span>
     <input
       type="date"
+      [name]="$name()"
       [value]="$value() | date: 'yyyy-MM-dd'"
       (input)="$value.set($any($event).target.valueAsDate)"
     />

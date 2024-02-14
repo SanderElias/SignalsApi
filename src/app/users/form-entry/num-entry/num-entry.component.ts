@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, input, model } from '@angular/core'
       <span>{{ $name() }}:</span>
       <input
         type="number"
+        [name]="$name()"
         [value]="$value()"
         (input)="$value.set($any($event).target?.valueAsNumber || 0)"
       />
