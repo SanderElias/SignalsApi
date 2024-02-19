@@ -50,13 +50,15 @@ fieldset {
 
 }
 
-label:has(input:invalid) {
+label:has(input:invalid:not(.pristine)) {
 
   input {
     border-color: var(--red-8);
   }
 
   input:focus-visible {
-    outline-color: var(--red-9);
+    --link: var(--red-8);
+    --brand: var(--red-8);
+    outline-color: var(--red-8);
   }
 }

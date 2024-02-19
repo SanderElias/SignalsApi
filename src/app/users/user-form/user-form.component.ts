@@ -4,12 +4,10 @@ import {
   computed,
   inject,
   input,
-  signal,
 } from '@angular/core';
+import { DateEntryComponent } from '../../form-stuff/entries/date-entry/date-entry.component';
+import { FormEntryComponent } from '../../form-stuff/entries/form-entry/form-entry.component';
 import { UserCrudService } from '../../user.crud.service';
-import { FormEntryComponent } from '../form-entry/form-entry.component';
-import { JsonPipe } from '@angular/common';
-import { DateEntryComponent } from '../form-entry/date-entry/date-entry.component';
 
 @Component({
   selector: 'app-user-form',
@@ -35,7 +33,7 @@ export class UserFormComponent {
   $data = this.ucs.read(this.userId);
   $user = computed(() => this.$data().data || {});
   $entries = computed(() => Object.entries(this.$user()));
-  bod = new Date()
+  bod = new Date();
 
   save(entries: [string, any][], event: Event) {
     const newData = flattenObj(Object.fromEntries(entries));

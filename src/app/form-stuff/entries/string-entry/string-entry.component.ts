@@ -5,13 +5,14 @@ import {
   model
 } from '@angular/core';
 import { ShowErrorComponent } from '../show-error/show-error.component';
+import { SignalEntryComponent } from '../base-entry/base-entry.component';
 
 @Component({
   selector: 'string-entry',
   standalone: true,
   imports: [ShowErrorComponent],
   template: `<label>
-    <span>{{ $name() }}:<show-error [for]="$name()"/></span>
+    <span>{{ $name() }}:<show-error/></span>
     <input
       type="text"
       [name]="$name()"
@@ -23,7 +24,5 @@ import { ShowErrorComponent } from '../show-error/show-error.component';
   styleUrl: './string-entry.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StringEntryComponent {
-  $name = input.required<string>();
-  $value = model.required<string>();
+export class StringEntryComponent extends SignalEntryComponent<string> {
 }

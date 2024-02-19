@@ -1,13 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation,
   input,
-  model,
+  model
 } from '@angular/core';
+import { StringEntryComponent } from '../../entries/string-entry/string-entry.component';
 import type { Contact } from '../../form-stuff.component';
-import { StringEntryComponent } from '../../../users/form-entry/string-entry/string-entry.component';
-import { encapsulateStyle } from '@angular/compiler';
+
+
 
 @Component({
   selector: 'contact-entry',
@@ -16,17 +16,17 @@ import { encapsulateStyle } from '@angular/compiler';
   template: `
     <fieldset>
       <string-entry
-        [$name]="'Name'"
+        [$name]="$name()+'.name'"
         [$value]="$value().name"
         ($valueChange)="update('name', $event)"
       />
       <string-entry
-        [$name]="'Phone'"
+        [$name]="$name()+'.phone'"
         [$value]="$value().phone"
         ($valueChange)="update('phone', $event)"
       />
       <string-entry
-        [$name]="'Email'"
+        [$name]="$name()+'.email'"
         [$value]="$value().email"
         ($valueChange)="update('email', $event)"
       />
