@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { SignalFormDirective } from './SignalFormDirective';
+import { ContactsEntryComponent } from './contacts-entry/contacts-entry.component';
 import { ObjectEntryComponent } from './entries/object-entry/object-entry.component';
 import { RadioEntryComponent } from './entries/radio-entry/radio-entry.component';
 import { StringEntryComponent } from './entries/string-entry/string-entry.component';
-import { ContactsEntryComponent } from './contacts-entry/contacts-entry.component';
 
 const options =  ['address','company','contacts'] as const
 type Options = typeof options[number]
@@ -25,7 +26,7 @@ type Options = typeof options[number]
   `,
     styleUrl: './form-stuff.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RadioEntryComponent, ObjectEntryComponent, StringEntryComponent, ContactsEntryComponent]
+    imports: [RadioEntryComponent, ObjectEntryComponent, StringEntryComponent, ContactsEntryComponent, SignalFormDirective]
 })
 export class FormStuffComponent {
   options = options as unknown as string[];
@@ -63,3 +64,5 @@ export interface Contact {
   phone:string;
   email:string;
 }
+
+

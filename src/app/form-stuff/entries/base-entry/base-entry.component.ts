@@ -44,7 +44,13 @@ export class SignalEntryComponent<T> {
   done = afterNextRender(
     async () => {
       let count = 50;
-      const getInp = () => this.#elm.querySelector('input, select, textarea') as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+      const getInp = () =>
+        this.#elm.querySelector('input, select, textarea, fieldset') as
+          | HTMLInputElement
+          | HTMLSelectElement
+          | HTMLTextAreaElement
+          | HTMLFieldSetElement
+          | null;
 
       let inp = getInp();
       while (inp == undefined && --count > 0) {
@@ -66,18 +72,21 @@ export class SignalEntryComponent<T> {
     },
   );
 
-  dummy = effect(() => {
-    const val = this.$value();
-    const errors = this.$validators()
-      .map((v) => v(val))
-      .filter((r): r is string => r !== undefined);
-    if (errors.length > 0) {
-      this.#ses.setCustomValidity(errors);
-    } else {
-      this.#ses.clearError();
-    }
-    errors.length > 0 && console.log(this.$name(), errors.join(', '));
-  });
+  dummy = effect(
+    () => {
+      const val = this.$value();
+      const errors = this.$validators()
+        .map((v) => v(val))
+        .filter((r): r is string => r !== undefined);
+      if (errors.length > 0) {
+        this.#ses.setCustomValidity(errors);
+      } else {
+        this.#ses.clearError();
+      }
+      errors.length > 0 && console.log(this.$name(), errors.join(', '));
+    },
+    { allowSignalWrites: true },
+  );
 }
 
 type ValidatorFn<T> = (value?: T) => string | undefined;

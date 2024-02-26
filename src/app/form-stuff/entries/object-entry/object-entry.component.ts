@@ -7,15 +7,14 @@ import {
 import { SignalEntryComponent } from '../base-entry/base-entry.component';
 import { FormEntryComponent } from '../form-entry/form-entry.component';
 import { GroupValidationEntryComponent } from '../group-validation-entry/group-validation-entry.component';
+import { ShowErrorComponent } from "../show-error/show-error.component";
 
 @Component({
-  selector: 'object-entry',
-  standalone: true,
-  imports: [FormEntryComponent, GroupValidationEntryComponent],
-  template: `
+    selector: 'object-entry',
+    standalone: true,
+    template: `
     <fieldset>
-      <legend>{{ $name() }}</legend>
-      <group-validation-entry [$name]="$name()" [$value]="$value" />
+      <legend>{{ $name() }} <show-error/></legend>
       @for (entry of $entries(); track $index) {
         <app-form-entry
           [$name]="entry.name"
@@ -25,11 +24,12 @@ import { GroupValidationEntryComponent } from '../group-validation-entry/group-v
       }
     </fieldset>
   `,
-  styleUrl: './object-entry.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './object-entry.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormEntryComponent, GroupValidationEntryComponent, ShowErrorComponent]
 })
 export class ObjectEntryComponent<
-  T extends object,
+  T extends Record<string, any>,
 > extends SignalEntryComponent<T> {
   $entries = computed(() =>
     (Object.entries(this.$value()) as Entries<T>).map(([name, value]) => ({

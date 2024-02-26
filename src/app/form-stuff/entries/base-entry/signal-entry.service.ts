@@ -10,9 +10,9 @@ export class SignalEntryService {
    * a reference to the related input element
    */
   readonly $relatedElement = signal<
-    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement| HTMLFieldSetElement | null
   >(null);
-  readonly isPristine = signal(true);
+  readonly #isPristine = signal(true);
 
   readonly setCustomValidity = (err: string | string[]) => {
     const elm = this.$relatedElement();
@@ -31,17 +31,30 @@ export class SignalEntryService {
     }
   };
 
-  #pristineEffect = effect(() => {
+  readonly markDirty = () => {
     const elm = this.$relatedElement();
-    if (!elm) return;
-    elm.classList.add('pristine');
-    const noLongerPristine = () => {
-      this.isPristine.set(false);
+    if (elm) {
       elm.classList.remove('pristine');
-      elm.removeEventListener('input', noLongerPristine); // can only loose your virginity once
-      this.#pristineEffect.destroy(); // no longer needed
-    };
-    // todo: decide if 'input' is the right event to listen to
-    elm.addEventListener('input', noLongerPristine); // trigger on first input
-  });
+      this.#isPristine.set(false);
+      this.#pristineEffect?.destroy();
+      this.#pristineEffect = undefined;
+    }
+  };
+
+  #pristineEffect? = effect(
+    () => {
+      const elm = this.$relatedElement();
+      if (!elm) return;
+      elm.classList.add('pristine');
+      const noLongerPristine = () => {
+        elm.removeEventListener('input', noLongerPristine); // can only loose your virginity once
+        this.markDirty();
+      };
+      // todo: decide if 'input' is the right event to listen to
+      elm.addEventListener('input', noLongerPristine); // trigger on first input
+    },
+    {
+      allowSignalWrites: true,
+    },
+  );
 }

@@ -7,13 +7,25 @@
     align-items: center;
     justify-items: start;
     gap: 1rem;
-
-    span:after {
-      content: unset;
-    }
   }
 
-  input {
-    width: 2rem;
+  input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+  }
+
+  label:has(input[type="radio"]) {
+    border: 1px solid transparent;
+    &:has(input:checked) {
+      border: 1px solid var(--brand);
+    }
+
+    &:hover {
+      border: 1px dashed var(--surface-3);
+    }
   }
 }
