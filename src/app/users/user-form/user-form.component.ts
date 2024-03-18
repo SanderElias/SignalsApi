@@ -10,13 +10,14 @@ import { FormEntryComponent } from '../../form-stuff/entries/form-entry/form-ent
 import { UserCrudService } from '../../user.crud.service';
 import type { User } from '../../user-interface';
 import { SpinnerComponent } from '../../utils/spinner/spinner.component';
+import { flattenObject } from '../../utils/objects/flatten-object';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
   template: `
     @if ($data().loading) {
-      <app-spinner style="--spinner-size:250px"/>
+      <app-spinner style="--spinner-size:250px" />
     } @else {
       <form (submit)="save($entries(), $event)">
         <button novalidate type="submit">Save</button>
@@ -45,8 +46,8 @@ export class UserFormComponent {
   async save(entries: [string, any][], event: Event) {
     const saveData = Object.fromEntries(entries) as User;
     await this.ucs.update(saveData);
-    const newData = flattenObj(saveData);
-    const oldData = flattenObj(this.$user());
+    const newData = flattenObject(saveData);
+    const oldData = flattenObject(this.$user());
     for (let key in newData) {
       if (newData[key] !== oldData[key]) {
         console.log(
@@ -59,18 +60,4 @@ export class UserFormComponent {
   }
 }
 
-function flattenObj(
-  obj: Record<string, any>,
-  parent = '',
-  res = {} as Record<string, any>,
-) {
-  for (let key in obj) {
-    let propName = parent ? parent + '.' + key : key;
-    if (typeof obj[key] === 'object') {
-      flattenObj(obj[key], propName, res);
-    } else {
-      res[propName] = obj[key];
-    }
-  }
-  return res;
-}
+
