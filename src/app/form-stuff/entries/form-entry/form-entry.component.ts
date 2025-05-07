@@ -13,6 +13,7 @@ import {
   type ComponentRef,
 } from '@angular/core';
 import { matchEntryComponent } from './matchEntryComponent';
+import { SignalEntryComponent } from '../base-entry/base-entry.component';
 
 @Component({
   selector: 'app-form-entry',
@@ -22,20 +23,22 @@ import { matchEntryComponent } from './matchEntryComponent';
   styleUrl: './form-entry.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormEntryComponent {
+export class FormEntryComponent<T>{
+  readonly $name = input.required<string>();
+  readonly $value = model.required<T>();
   #vc = inject(ViewContainerRef);
   #inj = inject(Injector);
-  $name = input.required<string>();
-  $value = model.required<unknown>();
   $inputs = computed(() => ({ $name: this.$name(), $value: this.$value }));
 
   constructor() {
     afterNextRender(() => {
+      const value = this.$value();
+      const name = this.$name();
       let comp: any;
       let cRef: ComponentRef<any> | undefined;
       runInInjectionContext(this.#inj, () => {
         effect(() => {
-          matchEntryComponent(this.$name(), this.$value()).then((component) => {
+          matchEntryComponent(name, value).then((component) => {
             if (!component || comp === component) return; // only create if different
             this.#vc.clear(); // clear previous component
             comp = component;
@@ -43,8 +46,8 @@ export class FormEntryComponent {
               index: 0, // always replace the first one
               injector: this.#inj, // use the same injector
             });
-            cRef.setInput('$name', this.$name());
-            cRef.setInput('$value', this.$value());
+            cRef.setInput('$name', name);
+            cRef.setInput('$value', value);
             cRef.changeDetectorRef.detectChanges(); // force change detection ??
             cRef.instance.$value.subscribe((value: any) => {
               this.$value.set(value);

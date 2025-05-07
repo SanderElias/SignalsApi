@@ -1,11 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
-  input,
-  model,
+  input
 } from '@angular/core';
-import { ShowErrorComponent } from '../../users/form-entry/show-error/show-error.component';
+import { SignalEntryComponent } from '../base-entry/base-entry.component';
+import { ShowErrorComponent } from '../show-error/show-error.component';
 
 @Component({
   selector: 'radio-entry',
@@ -33,9 +32,7 @@ import { ShowErrorComponent } from '../../users/form-entry/show-error/show-error
   styleUrl: './radio-entry.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioEntryComponent<T> {
-  $name = input.required<string>({alias: 'name'});
+export class RadioEntryComponent<T> extends SignalEntryComponent<T>{
   $options = input.required<T[]>();
-  $value = model.required<T>();
 
 }

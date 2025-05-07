@@ -5,7 +5,12 @@
 @import "open-props/buttons";
 
 :root {
-  --brand: #4d148c
+  --brand: #4d148c;
+}
+
+form {
+  border-radius: 0;
+  outline-style: none;
 }
 label {
   width: 30rem;
@@ -18,45 +23,75 @@ label {
     display: block;
     margin-left: -1rem;
   }
-
 }
 
 input {
+  outline: 2px solid transparent;
+  outline-offset: 5px;
+}
+
+input {
+  accent-color: var(--brand);
+  caret-color: auto;
   width: 29rem;
   padding: var(--size-2);
   border: 1px solid var(--surface-3);
-  border-radius: var(--size-1);
+  border-left: 4px solid var(--surface-3);
+  border-radius: 0;
   background-color: var(--surface-2);
   font-size: var(--size-4);
   transition:
     border-color 0.3s,
     background-color 0.3s;
 
-  &:focus {
-    border-color: var(--brand);
+  &:focus-visible {
     outline-color: var(--brand);
+    border-color: var(--surface-4);
+    border-left-color: var(--brand);
     background-color: var(--surface-3);
   }
 }
 
+input[type=radio] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+label:has(input[type=radio]) {
+  border: 1px solid transparent;
+  &:has(input:checked) {
+    border: 1px solid var(--brand);
+  }
+
+  &:hover {
+    border: 1px dashed var(--surface-3);
+  }
+
+}
 
 fieldset {
+  border-radius: 0;
   display: flex;
   margin-top: var(--size-2);
   flex-direction: column;
   gap: var(--size-2);
   width: 30rem;
   padding-left: 1rem;
-
 }
 
-label:has(input:invalid) {
+label:has(input:invalid:not(.pristine)) {
+  --brand: var(--red-8);
 
   input {
-    border-color: var(--red-8);
+    border-color: var(--brand);
+    /* background-color: var(--red-2); */
   }
+}
 
-  input:focus-visible {
-    outline-color: var(--red-9);
-  }
+fieldset:focus-within {
+  border-left: 3px solid var(--brand);
+  padding-left: calc(1rem - 2px);
 }
