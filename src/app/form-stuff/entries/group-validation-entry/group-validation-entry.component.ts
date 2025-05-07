@@ -11,5 +11,5 @@ import { ShowErrorComponent } from '../show-error/show-error.component';
   imports: [ShowErrorComponent],
 })
 export class GroupValidationEntryComponent<
-  T extends Record<string, unknown>,
+  T extends { },
 > extends SignalEntryComponent<T> {}
