@@ -10,7 +10,7 @@ import { httpToDataResult } from './httpToDataResult';
 export class AlbumService {
   http = inject(HttpClient);
   url = (id: number) =>
-    `https://jsonplaceholder.typicode.com/albums/${id}/photos`;
+    `https://picsum.photos/${id}/200/300`;
 
   /**
    * private Helper function to load the photos for a given album id

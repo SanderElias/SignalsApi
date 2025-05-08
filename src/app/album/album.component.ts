@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { AlbumService } from '../album.service';
 
 @Component({
@@ -6,8 +6,8 @@ import { AlbumService } from '../album.service';
   standalone: true,
   imports: [],
   template: `
-    @for (photo of $photos(); track photo.id) {
-      <img src="{{ photo.thumbnailUrl }}" width="150px" height="150px" />
+    @for (photo of $photos(); track photo) {
+      <img [src]="'https://picsum.photos/id/'+photo+'/150'" width="150px" height="150px" />
     }
   `,
   styleUrl: './album.component.css',
@@ -16,6 +16,5 @@ export class AlbumComponent {
   private readonly album = inject(AlbumService);
   $albumId = input<number>();
 
-  $data = this.album.load(this.$albumId);
-  $photos = computed(() => this.$data().data || []);
+  $photos = signal<number[]>([1, 2, 3, 8, 4, 5, 6]);
 }

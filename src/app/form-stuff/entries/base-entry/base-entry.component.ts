@@ -1,17 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Injector,
-  afterNextRender,
-  inject,
-  input,
-  model,
-  AfterRenderPhase,
-  signal,
-  computed,
-  effect,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, inject, input, model, signal, computed, effect } from '@angular/core';
 import { SignalEntryService } from './signal-entry.service';
 import { SignalEntryDirective } from './signal-entry.directive';
 
@@ -42,34 +29,23 @@ export class SignalEntryComponent<T> {
   };
 
   done = afterNextRender(
-    async () => {
-      let count = 50;
-      const getInp = () =>
-        this.#elm.querySelector('input, select, textarea, fieldset') as
-          | HTMLInputElement
-          | HTMLSelectElement
-          | HTMLTextAreaElement
-          | HTMLFieldSetElement
-          | null;
-
-      let inp = getInp();
-      while (inp == undefined && --count > 0) {
-        await new Promise((r) => setTimeout(r, 25));
-        inp = getInp();
-      }
-      if (!inp) {
-        throw new Error(
-          `[${this.#elm.tagName}] with name "${this.$name()}" could not locate an "fieldset", "input", "select", or "textarea" element
+    { read: async () => {
+        let count = 50;
+        const getInp = () => this.#elm.querySelector('input, select, textarea, fieldset') as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLFieldSetElement | null;
+        let inp = getInp();
+        while (inp == undefined && --count > 0) {
+            await new Promise((r) => setTimeout(r, 25));
+            inp = getInp();
+        }
+        if (!inp) {
+            throw new Error(`[${this.#elm.tagName}] with name "${this.$name()}" could not locate an "fieldset", "input", "select", or "textarea" element
         for components extending SignalEntryComponent it is mandatory to have such an element in the template
-        did you nest one inside an @if{} or @for{} block?`,
-        );
-      }
-      this.#ses.$relatedElement.set(inp);
-      this.done.destroy(); // we only need to do this once!
-    },
-    {
-      phase: AfterRenderPhase.Read,
-    },
+        did you nest one inside an @if{} or @for{} block?`);
+        }
+        this.#ses.$relatedElement.set(inp);
+        this.done.destroy(); // we only need to do this once!
+    } },
+    ,
   );
 
   dummy = effect(
