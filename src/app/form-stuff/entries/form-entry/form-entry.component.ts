@@ -16,12 +16,11 @@ import { matchEntryComponent } from './matchEntryComponent';
 import { SignalEntryComponent } from '../base-entry/base-entry.component';
 
 @Component({
-  selector: 'app-form-entry',
-  standalone: true,
-  imports: [],
-  template: ``,
-  styleUrl: './form-entry.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-form-entry',
+    imports: [],
+    template: ``,
+    styleUrl: './form-entry.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormEntryComponent<T>{
   readonly $name = input.required<string>();

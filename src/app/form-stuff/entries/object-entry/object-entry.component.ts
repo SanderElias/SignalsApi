@@ -11,7 +11,6 @@ import { ShowErrorComponent } from "../show-error/show-error.component";
 
 @Component({
     selector: 'object-entry',
-    standalone: true,
     template: `
     <fieldset>
       <legend>{{ $name() }} <show-error/></legend>

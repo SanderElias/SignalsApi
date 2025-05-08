@@ -8,10 +8,9 @@ import { PostCrudService } from '../../post.crud.service';
 import { Post } from '../../post.list.service';
 
 @Component({
-  selector: 'post-form',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'post-form',
+    imports: [],
+    template: `
     <form #form (submit)="save(form, $event)">
       <label>
         <span>title</span>
@@ -24,8 +23,8 @@ import { Post } from '../../post.list.service';
       <button type="submit">{{ $isNew() ? 'create' : 'update' }}</button>
     </form>
   `,
-  styleUrl: './post-form.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './post-form.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostFormComponent {
   $isNew = input.required<Boolean>() // if true, we are creating a new post, else we are updating an existing one.

@@ -11,10 +11,9 @@ import { PostFormComponent } from './post-form/post-form.component';
 import { JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-post',
-  standalone: true,
-  imports: [PostFormComponent, JsonPipe],
-  template: `
+    selector: 'app-post',
+    imports: [PostFormComponent, JsonPipe],
+    template: `
     @if ($result().loading) {
       <h4>loading...</h4>
     } @else {
@@ -32,9 +31,9 @@ import { JsonPipe } from '@angular/common';
       }
     }
   `,
-  styleUrl: './post.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [PostCrudService], // provide this service only for this component-tree
+    styleUrl: './post.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [PostCrudService]
 })
 export class PostComponent {
   postService = inject(PostsListService);

@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-menu',
-  standalone: true,
-  imports: [RouterLink],
-  template: `
+    selector: 'app-menu',
+    imports: [RouterLink],
+    template: `
     <nav>
       <ul>
         <li><span>Menu</span><span>🔻</span></li>
@@ -19,8 +18,8 @@ import { RouterLink } from '@angular/router';
       </ul>
     </nav>
   `,
-  styleUrl: './menu.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrl: './menu.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent {
 

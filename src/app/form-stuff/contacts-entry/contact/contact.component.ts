@@ -10,10 +10,9 @@ import type { Contact } from '../../form-stuff.component';
 
 
 @Component({
-  selector: 'contact-entry',
-  standalone: true,
-  imports: [StringEntryComponent],
-  template: `
+    selector: 'contact-entry',
+    imports: [StringEntryComponent],
+    template: `
     <fieldset>
       <string-entry
         [$name]="$name()+'.name'"
@@ -32,8 +31,8 @@ import type { Contact } from '../../form-stuff.component';
       />
     </fieldset>
   `,
-  styleUrl: './contact.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './contact.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactEntryComponent {
   $name = input.required<string>();

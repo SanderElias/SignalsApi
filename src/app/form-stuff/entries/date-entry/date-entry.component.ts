@@ -10,7 +10,6 @@ import { ShowErrorComponent } from "../show-error/show-error.component";
 
 @Component({
     selector: 'app-date-entry',
-    standalone: true,
     template: `<label>
     <span>{{ $name() }}: <show-error /></span>
     <input

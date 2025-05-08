@@ -11,12 +11,11 @@ import {
 import { SignalEntryService } from '../base-entry/signal-entry.service';
 
 @Component({
-  selector: 'show-error',
-  standalone: true,
-  imports: [],
-  template: `* {{ error() }}`,
-  styleUrl: './show-error.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'show-error',
+    imports: [],
+    template: `* {{ error() }}`,
+    styleUrl: './show-error.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowErrorComponent {
   #ses = inject(SignalEntryService);

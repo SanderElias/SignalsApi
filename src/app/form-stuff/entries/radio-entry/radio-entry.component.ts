@@ -7,10 +7,9 @@ import { SignalEntryComponent } from '../base-entry/base-entry.component';
 import { ShowErrorComponent } from '../show-error/show-error.component';
 
 @Component({
-  selector: 'radio-entry',
-  standalone: true,
-  imports: [ShowErrorComponent],
-  template: `
+    selector: 'radio-entry',
+    imports: [ShowErrorComponent],
+    template: `
     <fieldset>
       <legend>{{ $name() }}</legend>
       @for (option of $options(); track $index) {
@@ -29,8 +28,8 @@ import { ShowErrorComponent } from '../show-error/show-error.component';
 
     </fieldset>
   `,
-  styleUrl: './radio-entry.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './radio-entry.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioEntryComponent<T> extends SignalEntryComponent<T>{
   $options = input.required<T[]>();

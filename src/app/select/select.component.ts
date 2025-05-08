@@ -2,10 +2,9 @@ import { Component, Input, WritableSignal, inject } from '@angular/core';
 import { AlbumsService } from '../albums.service';
 
 @Component({
-  selector: 'app-select',
-  standalone: true,
-  imports: [],
-  template: ` <select
+    selector: 'app-select',
+    imports: [],
+    template: ` <select
     name="album"
     id="album"
     (input)="$selected.set($any($event.target).value)"
@@ -15,7 +14,7 @@ import { AlbumsService } from '../albums.service';
       <option value="{{ album.id }}">{{ album.title }}</option>
     }
   </select>`,
-  styleUrl: './select.component.css',
+    styleUrl: './select.component.css'
 })
 export class SelectComponent {
   $albums = inject(AlbumsService).$albums;

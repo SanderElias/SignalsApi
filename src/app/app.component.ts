@@ -9,7 +9,6 @@ import { MenuComponent } from "./menu/menu.component";
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     template: `
     <header>
       <h1>Signal API sample</h1> <app-menu />

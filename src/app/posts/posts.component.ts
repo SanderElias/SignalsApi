@@ -11,10 +11,9 @@ import { PostsListService } from './post.list.service';
 import { PostComponent } from './post/post.component';
 
 @Component({
-  selector: 'app-posts',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, PostComponent],
-  template: `
+    selector: 'app-posts',
+    imports: [RouterOutlet, RouterLink, PostComponent],
+    template: `
     <h3>Posts</h3>
     <a [routerLink]="['.', 0]">New</a>
     @for (postId of $postIds(); track postId) {
@@ -42,8 +41,8 @@ import { PostComponent } from './post/post.component';
       }
     </div>
   `,
-  styleUrl: './posts.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './posts.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsComponent {
   postListService = inject(PostsListService);
