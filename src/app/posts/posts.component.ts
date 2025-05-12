@@ -11,24 +11,22 @@ import { PostsListService } from './post.list.service';
 import { PostComponent } from './post/post.component';
 
 @Component({
-    selector: 'app-posts',
-    imports: [RouterOutlet, RouterLink, PostComponent],
-    template: `
+  selector: 'app-posts',
+  imports: [RouterOutlet, RouterLink, PostComponent],
+  template: `
     <h3>Posts</h3>
     <a [routerLink]="['.', 0]">New</a>
     @for (postId of $postIds(); track postId) {
       <a (click)="open(postId)">{{ postId }}</a>
     }
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          [checked]="$useAside()"
-          (change)="$useAside.set($any($event.target).checked)"
-        />
-        <span>Use an aside?</span>
-      </label>
-    </div>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="$useAside()"
+        (change)="$useAside.set($any($event.target).checked)"
+      />
+      <span>Use an aside?</span>
+    </label>
     <hr />
     <div id="grid">
       <section>
@@ -41,15 +39,15 @@ import { PostComponent } from './post/post.component';
       }
     </div>
   `,
-    styleUrl: './posts.component.css',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './posts.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostsComponent {
   postListService = inject(PostsListService);
   router = inject(Router);
   $asides = signal([] as number[]);
 
-  $useAside = signal(false);
+  $useAside = signal(true);
 
   $postIds = this.postListService.list;
 

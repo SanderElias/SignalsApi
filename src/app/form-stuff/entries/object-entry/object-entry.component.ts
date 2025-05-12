@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { SignalEntryComponent } from '../base-entry/base-entry.component';
 import { FormEntryComponent } from '../form-entry/form-entry.component';
-import { GroupValidationEntryComponent } from '../group-validation-entry/group-validation-entry.component';
 import { ShowErrorComponent } from "../show-error/show-error.component";
 
 @Component({
@@ -25,7 +24,7 @@ import { ShowErrorComponent } from "../show-error/show-error.component";
   `,
     styleUrl: './object-entry.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormEntryComponent, GroupValidationEntryComponent, ShowErrorComponent]
+    imports: [FormEntryComponent,  ShowErrorComponent]
 })
 export class ObjectEntryComponent<
   T extends Record<string, any>,

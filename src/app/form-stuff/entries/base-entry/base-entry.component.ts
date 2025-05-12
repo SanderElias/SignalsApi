@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, inject, input, model, signal, computed, effect } from '@angular/core';
-import { SignalEntryService } from './signal-entry.service';
+import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, effect, inject, input, model, signal } from '@angular/core';
 import { SignalEntryDirective } from './signal-entry.directive';
+import { SignalEntryService } from './signal-entry.service';
 
 @Component({
   standalone: true,
@@ -45,7 +45,7 @@ export class SignalEntryComponent<T> {
         this.#ses.$relatedElement.set(inp);
         this.done.destroy(); // we only need to do this once!
     } },
-    ,
+    
   );
 
   dummy = effect(

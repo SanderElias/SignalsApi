@@ -12,7 +12,21 @@ a {
 }
 
 label {
-  padding: var(--padding-2);
+  display: flex;
+
+  padding: .5rem;
+  flex-direction: row;
+  gap: .75rem;
+  align-items: center;
+  justify-self: flex-start;
+
+  input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    margin-inline-end: 1rem;;
+    cursor: pointer;
+  }
 }
 
 #grid {

@@ -1,19 +1,30 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { AlbumService } from '../album.service';
 
 @Component({
-    selector: 'app-album',
-    imports: [],
-    template: `
+  selector: 'app-album',
+  imports: [],
+  template: `
     @for (photo of $photos(); track photo) {
-      <img [src]="'https://picsum.photos/id/'+photo+'/150'" width="150px" height="150px" />
+      <img
+        [src]="photo"
+        width="150px"
+        height="150px"
+      />
     }
   `,
-    styleUrl: './album.component.css'
+  styleUrl: './album.component.css',
 })
 export class AlbumComponent {
   private readonly album = inject(AlbumService);
   $albumId = input<number>();
 
-  $photos = signal<number[]>([1, 2, 3, 8, 4, 5, 6]);
+  photoResult = this.album.load(this.$albumId);
+
+  $photos = computed(() => {
+    const r = this.photoResult();
+    if (r.loading) return [];
+    if (r.error) return [];
+    return r.data;
+  });
 }

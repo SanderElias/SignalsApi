@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
@@ -11,19 +11,10 @@ import { firstValueFrom } from 'rxjs';
  * When you have this situation, you can use this service as a template.
  */
 export class AlbumsService {
-  http = inject(HttpClient);
   url = 'https://jsonplaceholder.typicode.com/albums/';
-  #$albums = signal([] as Album[]);
-  $albums = this.#$albums.asReadonly();
 
-  constructor() {
-    this.loadAlbums();
-  }
-
-  async loadAlbums() {
-    const albums = await firstValueFrom(this.http.get<Album[]>(this.url));
-    this.#$albums.set(albums);
-  }
+  albumsResource = httpResource<Album[]>(() => this.url);
+  $albums = this.albumsResource.value;
 }
 
 export interface Album {
