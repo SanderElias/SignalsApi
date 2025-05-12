@@ -10,10 +10,9 @@ import {
 import { UserCrudService } from '../../user.crud.service';
 
 @Component({
-  selector: 'tr[\\$userId]',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'tr[\\$userId]',
+    imports: [],
+    template: `
 
     @if ($loading()) {
       <td colspan="3">Loading...</td>
@@ -23,9 +22,9 @@ import { UserCrudService } from '../../user.crud.service';
       <td>{{ $user().data?.name }}</td>
     }
   `,
-  styleUrl: './user-row.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UserCrudService],
+    styleUrl: './user-row.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [UserCrudService]
 })
 export class UserRowComponent {
   us = inject(UserCrudService);

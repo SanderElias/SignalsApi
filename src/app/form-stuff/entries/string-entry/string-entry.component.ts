@@ -8,10 +8,9 @@ import { ShowErrorComponent } from '../show-error/show-error.component';
 import { SignalEntryComponent } from '../base-entry/base-entry.component';
 
 @Component({
-  selector: 'string-entry',
-  standalone: true,
-  imports: [ShowErrorComponent],
-  template: `<label>
+    selector: 'string-entry',
+    imports: [ShowErrorComponent],
+    template: `<label>
     <span>{{ $name() }}:<show-error/></span>
     <input
       type="text"
@@ -21,8 +20,8 @@ import { SignalEntryComponent } from '../base-entry/base-entry.component';
       required
     />
   </label> `,
-  styleUrl: './string-entry.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './string-entry.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StringEntryComponent extends SignalEntryComponent<string> {
 }

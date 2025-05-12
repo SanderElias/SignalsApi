@@ -9,9 +9,8 @@ import { UserRowComponent } from './user-row/user-row.component';
 import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
-  selector: 'app-users',
-  standalone: true,
-  template: `
+    selector: 'app-users',
+    template: `
     <h2>Users</h2>
     <table>
       <thead>
@@ -31,9 +30,9 @@ import { UserFormComponent } from './user-form/user-form.component';
       <app-user-form [userId]="$selected()!"></app-user-form>
     }
   `,
-  styleUrl: './users.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserRowComponent, UserFormComponent],
+    styleUrl: './users.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [UserRowComponent, UserFormComponent]
 })
 export class UsersComponent {
   uls = inject(UserListService);

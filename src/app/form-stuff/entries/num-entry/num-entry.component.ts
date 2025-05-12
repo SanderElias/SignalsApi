@@ -4,7 +4,6 @@ import { ShowErrorComponent } from "../show-error/show-error.component";
 
 @Component({
     selector: 'app-num-entry',
-    standalone: true,
     template: `
     <label>
       <span>{{ $name() }}: <show-error /></span>

@@ -10,7 +10,6 @@ type Options = typeof options[number]
 
 @Component({
     selector: 'app-form-stuff',
-    standalone: true,
     template: `
   <h3>Form Stuff</h3>
   <form (submit)="save($event)">

@@ -13,9 +13,8 @@ import { SpinnerComponent } from '../../utils/spinner/spinner.component';
 import { flattenObject } from '../../utils/objects/flatten-object';
 
 @Component({
-  selector: 'app-user-form',
-  standalone: true,
-  template: `
+    selector: 'app-user-form',
+    template: `
     @if ($data().loading) {
       <app-spinner style="--spinner-size:250px" />
     } @else {
@@ -28,10 +27,10 @@ import { flattenObject } from '../../utils/objects/flatten-object';
       </form>
     }
   `,
-  styleUrl: './user-form.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UserCrudService],
-  imports: [FormEntryComponent, DateEntryComponent, SpinnerComponent],
+    styleUrl: './user-form.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [UserCrudService],
+    imports: [FormEntryComponent, DateEntryComponent, SpinnerComponent]
 })
 export class UserFormComponent {
   ucs = inject(UserCrudService);

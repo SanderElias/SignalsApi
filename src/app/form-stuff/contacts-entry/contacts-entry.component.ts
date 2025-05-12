@@ -12,7 +12,6 @@ import { GroupValidationEntryComponent } from "../entries/group-validation-entry
 
 @Component({
     selector: 'contacts-entry',
-    standalone: true,
     template: `
     <fieldset>
       <legend>Contacts <show-error /></legend>

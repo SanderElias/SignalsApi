@@ -12,7 +12,6 @@ import { PostComponent } from './post/post.component';
 
 @Component({
   selector: 'app-posts',
-  standalone: true,
   imports: [RouterOutlet, RouterLink, PostComponent],
   template: `
     <h3>Posts</h3>
@@ -20,16 +19,14 @@ import { PostComponent } from './post/post.component';
     @for (postId of $postIds(); track postId) {
       <a (click)="open(postId)">{{ postId }}</a>
     }
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          [checked]="$useAside()"
-          (change)="$useAside.set($any($event.target).checked)"
-        />
-        <span>Use an aside?</span>
-      </label>
-    </div>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="$useAside()"
+        (change)="$useAside.set($any($event.target).checked)"
+      />
+      <span>Use an aside?</span>
+    </label>
     <hr />
     <div id="grid">
       <section>
@@ -50,7 +47,7 @@ export class PostsComponent {
   router = inject(Router);
   $asides = signal([] as number[]);
 
-  $useAside = signal(false);
+  $useAside = signal(true);
 
   $postIds = this.postListService.list;
 
